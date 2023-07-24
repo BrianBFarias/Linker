@@ -1,0 +1,40 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id="allPosts">
+    <!-- create a Post -->
+    {% if user.is_authenticated %}
+    <div class="section">
+        <h5>Create a Post</h5>
+        <hr class="title">
+        <form action="{% url 'compose' %}" id="create_post" method="post">
+            {% csrf_token %}
+            <div class="post">
+                <textarea class="content" name="content" id="" cols="30" rows="10" placeholder="Type message"></textarea>
+            </div>
+            <div class="post">
+                <button class="post-btn" type="submit"> Post </button>
+            </div>
+        </form>
+    </div>    
+    <hr class="seperator">
+    {% endif %}
+
+    <!-- view all posts -->
+    <div id="posts">
+
+    </div>
+    
+    <div id="page-controls">
+        <button class="next-btn" id="page-btn" onclick="next_post()">next</button>
+        <button class="previous-btn" id="page-btn" onclick="back_post()">previous</button>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/index.js' %}"></script>
+{% endblock %}

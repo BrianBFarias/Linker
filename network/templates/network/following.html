@@ -1,0 +1,24 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id="allPosts">
+    <!-- view all posts -->
+    <h1 class="following-title">Following feed</h1>
+    <hr class="seperator">
+    <div id="posts">
+
+    </div>
+    
+    <div id="page-controls">
+        <button class="next-btn" id="page-btn" onclick="next_post()">next</button>
+        <button class="previous-btn" id="page-btn" onclick="back_post()">previous</button>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/following.js' %}"></script>
+{% endblock %}

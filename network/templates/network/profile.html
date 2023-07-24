@@ -1,0 +1,80 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div id="prof-header">
+        <div class="section">
+            <input type="hidden" id="profile_id" value="{{profile.id}}">
+            <h1>{{ profile.user.username }}</h1>
+            {% if user !=  profile.user and not following %}
+            
+            <button class="follow-btn" onclick="follow()" id="not-following"> Follow +</button>
+            {% endif %}
+            {% if user !=  profile.user and following%}
+            
+            <button class="follow-btn" onclick="follow()" id="following"> Following</button>
+
+            {% endif %}
+
+        </div>
+        <div class="section">
+            <button id="followers">
+                <div class="followers_count"> {{profile.followers.count}} </div>
+                <div> Followers</div>
+            </button>
+        </div>
+        <div class="section">
+            <button id="followers">
+                <div> {{profile.following.count}} </div>
+                <div> Following </div>
+            </button>
+        </div>
+        </div>
+    </div>
+    <hr>
+    {% if user ==  profile.user%}
+            
+    <div id="Prof-posts">
+
+    </div>
+    <div id="page-controls">
+        <button class="next-btn" id="page-btn" onclick="next_post()">next</button>
+        <button class="previous-btn" id="page-btn" onclick="back_post()">previous</button>
+    </div>
+
+    {% endif %}
+
+    {% if user !=  profile.user%}
+
+    <div id="Prof-posts">
+        {% for post in posts%}
+        <div class="section" id="{{post.id}}">
+            <div class="post_item">
+                <a>{{post.creator}}</a>
+            </div>
+            <div class="post_data">
+                <h6 class="postedContent">{{post.content}}</h6>
+                <p>{{post.timestamp}}</p>
+            </div>
+            <div class="like_item">
+                <h7 class="num-likes" id="4">{{post.likes.count}}</h7>
+                <button class="like-btn" onclick="handle_like({post_id: '{{post.id}}'})">Like</button>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block script %}
+    {% if user ==  profile.user%}
+    <script src="{% static 'network/profile.js' %}"></script>
+    {% endif %}
+    {% if user !=  profile.user%}
+    <script src="{% static 'network/other_profile.js' %}"></script>
+    {% endif %}
+{% endblock %}
